@@ -11,7 +11,7 @@ spec:
           containers:
           - name: peeringdb-ix
             image: internethealthreport/peeringdb
-            args: ix.py
+            args: ["ix.py"]
             env:
             - name: KAFKA_HOST
               value: ihr-kafka-bootstrap:9092
@@ -30,7 +30,7 @@ spec:
           containers:
           - name: peeringdb-netixlan
             image: internethealthreport/peeringdb
-            args: netixlan.py
+            args: ["netixlan.py"]
             env:
             - name: KAFKA_HOST
               value: ihr-kafka-bootstrap:9092

@@ -11,13 +11,13 @@ run:
 	@kubectl apply -f kafka/kafka.yaml
 	@echo "Kafka Deployed ✅"
 
-etl:
+jobs:
 	@echo "Start Scheduling ETL CronJobs..."
 	@echo "Schedule PeeringDB CronJob..."
-	@kubectl apply -f etl/peeringdb
+	@kubectl apply -f etl/peeringdb.yaml
 	@echo "Scheduled 2 PeeringDB CronJobs (ix & netixlan) ✅"
 	@echo "Schedule BGP CronJob..."
-	@kubectl apply -f etl/bgp
+	@kubectl apply -f etl/bgp.yaml
 	@echo "Scheduled 1 BGP CronJobs (rrc00) ✅"
 
 stop:
@@ -34,3 +34,5 @@ clean:
 	@kubectl delete -f etl/bgp
 	@kubectl delete -f etl/peeringdb
 	@echo "Deleted Kafka ✅"
+	@kubectl delete all --all
+	@echo "Deleted everything else ✅"
