@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: bgb
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: rrc00-collector
+            image: internethealthreport/bgp
+            args: ["-t", "updates", "--collector", "rrc00"]
+            env:
+            - name: KAFKA_HOST
+              value: ihr-kafka-bootstrap:9092
+          restartPolicy: OnFailure

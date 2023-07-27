@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: peeringdb-ix
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: peeringdb-ix
+            image: internethealthreport/peeringdb
+            args: ix.py
+            env:
+            - name: KAFKA_HOST
+              value: ihr-kafka-bootstrap:9092
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: peeringdb-netixlan
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: peeringdb-netixlan
+            image: internethealthreport/peeringdb
+            args: netixlan.py
+            env:
+            - name: KAFKA_HOST
+              value: ihr-kafka-bootstrap:9092
+          restartPolicy: OnFailure
